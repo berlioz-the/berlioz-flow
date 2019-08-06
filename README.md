@@ -8,10 +8,16 @@ $ berlioz-new-feature-branch.sh myfeature
 
 Make commits, push commits:
 ```
-$ berlioz-commit.sh
-$ berlioz-commit-push.sh
+$ berlioz-flow-commit
 $ berlioz-quick-dev-commit.sh
-$ berlioz-quick-dev-commit-skip-ci.sh
+```
+
+Push to remote
+```
+$ berlioz-flow-push
+$ berlioz-flow-commit-push
+$ berlioz-flow-quick-dev-commit-push
+$ berlioz-flow-quick-dev-commit-push-skip-ci
 ```
 
 When ready merge to staging:

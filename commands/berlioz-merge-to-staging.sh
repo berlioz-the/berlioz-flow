@@ -16,8 +16,7 @@ if [[ $CURR_BRANCH_NAME == "staging" ]]; then
     exit 2
 fi
 
-if [[ -z $(git status -s) ]]
-then
+if [[ -z $(git status -s) ]]; then
     echo "No pending changes in $CURR_BRANCH_NAME. Good..."
 else
     echo "ERROR: There are pending changes in $CURR_BRANCH_NAME. Cannot proceed."

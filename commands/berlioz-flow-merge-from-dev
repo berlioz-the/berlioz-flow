@@ -1,0 +1,5 @@
+#!/bin/bash
+
+source "${BASH_SOURCE%/*}/helpers/src-root-dir.sh"
+
+git_merge_from dev
