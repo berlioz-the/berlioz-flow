@@ -95,28 +95,36 @@ raw_exec_cmd() {
 }
 
 exec_cmd_no_bail_no_output() {
-    local  __resultvar=$2
-    local  __returncodevar=$3
     echo "+ $1"
-    result=$(bash -c "$1" 2>&1) # dzec
+    result=$(bash -c "$1") # In order to hide errors: 2>&1
     return_code=$(echo $?)
-    eval $__resultvar="'$result'"
-    eval $__returncodevar="'$return_code'"
+    if [[ ! -z ${2+x} ]]; then
+        local  __resultvar=$2
+        eval $__resultvar="'$result'"
+    fi
+    if [[ ! -z ${3+x} ]]; then
+        local  __returncodevar=$3
+        eval $__returncodevar="'$return_code'"
+    fi
 }
 
 exec_cmd_no_bail() {
     exec_cmd_no_bail_no_output "$1" result return_code
     echo "$result"
-    local  __resultvar=$2
-    local  __returncodevar=$3
-    eval $__resultvar="'$result'"
-    eval $__returncodevar="'$return_code'"
+    if [[ ! -z ${2+x} ]]; then
+        local  __resultvar=$2
+        eval $__resultvar="'$result'"
+    fi
+    if [[ ! -z ${3+x} ]]; then
+        local  __returncodevar=$3
+        eval $__returncodevar="'$return_code'"
+    fi
 }
 
 exec_cmd() {
     exec_cmd_no_bail "$1" result return_code
-    if [[ $return_code != "0" ]]; then
-        bail_with_error "$2" "$result"
+    if [[ ${return_code} != "0" ]]; then
+        bail_with_error "$2" "${result}"
     fi
     if [[ ! -z ${3+x} ]]; then 
         local  __resultvar=$3

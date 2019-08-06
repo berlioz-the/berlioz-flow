@@ -1,0 +1,38 @@
+#!/bin/bash
+
+source "${BASH_SOURCE%/*}/helpers/src-root-dir.sh"
+
+BRANCH_NAME=$1
+if [[ -z $BRANCH_NAME ]]; then
+    echo "ERROR: Arguments missing"
+    echo "Usage: berlioz-flow-switch-branch <branch-name>"
+    exit 1
+fi
+
+local CURR_BRANCH=
+exec_cmd "git rev-parse --abbrev-ref HEAD" \
+    "ERROR: Failed to determine current branch." \
+    CURR_BRANCH
+
+print_header "Switching from ${CURR_BRANCH} to ${BRANCH_NAME}" ""
+
+
+if [[ "${CURR_BRANCH}" == "${BRANCH_NAME}" ]]; then
+    echo "Already on branch: ${CURR_BRANCH}"
+    exit 0;
+else
+    exec_cmd "git status -s" \
+        "ERROR: Failed to status." \
+        result
+    if [[ ! -z "${result}" ]]; then
+        echo "ERROR: There are pending changes in ${CURR_BRANCH}. Cannot proceed."
+        exit 3
+    fi
+
+    print_status "Switching to ${BRANCH_NAME}..."
+    exec_cmd "git checkout ${BRANCH_NAME}" \
+        "ERROR: Failed to switch to ${BRANCH_NAME}"
+fi
+
+
+

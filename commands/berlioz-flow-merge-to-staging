@@ -2,6 +2,6 @@
 
 source "${BASH_SOURCE%/*}/helpers/src-root-dir.sh"
 
-print_header "Merging to dev brach" ""
+print_header "Merging to staging brach" ""
 
-git_merge_to dev
+git_merge_to staging

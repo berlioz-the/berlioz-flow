@@ -1,0 +1,9 @@
+#!/bin/bash
+
+source "${BASH_SOURCE%/*}/helpers/src-root-dir.sh"
+
+print_header "Syncing from dev brach and PUSH" ""
+
+git_merge_from dev
+
+git_push
