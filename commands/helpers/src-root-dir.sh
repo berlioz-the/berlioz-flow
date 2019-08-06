@@ -139,3 +139,5 @@ exec_cmd_no_output() {
 ###
 ### MISC
 ###
+
+source "${MY_DIR}/helpers/git-helpers.sh"
