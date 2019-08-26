@@ -5,16 +5,20 @@ source "${BASH_SOURCE%/*}/helpers/src-root-dir.sh"
 BRANCH_NAME=$1
 if [[ -z $BRANCH_NAME ]]; then
     echo "ERROR: Arguments missing"
-    echo "Usage: berlioz-new-branch.sh <new-branch-name>"
+    echo "Usage: berlioz-new-branch.sh <new-branch-name> [source-branch-name]"
     exit 1
 fi
-
-print_header "This is a command to create a new freature branch $BRANCH_NAME" ""
-
 BRANCH_NAME="dev-${BRANCH_NAME}"
 
-print_status "Creating new branch $BRANCH_NAME from staging..."
-exec_cmd "git checkout -b ${BRANCH_NAME} staging" \
+SOURCE_BRANCH_NAME=$2
+if [[ -z ${SOURCE_BRANCH_NAME} ]]; then
+    SOURCE_BRANCH_NAME="master"
+fi
+
+print_header "This is a command to create a new freature branch ${BRANCH_NAME} from ${SOURCE_BRANCH_NAME}" ""
+
+print_status "Creating new branch $BRANCH_NAME from ${SOURCE_BRANCH_NAME}..."
+exec_cmd "git checkout -b ${BRANCH_NAME} ${SOURCE_BRANCH_NAME}" \
     "ERROR: Failed to create branch."
 
 print_status "Checking if remote $BRANCH_NAME branch exists..."
