@@ -34,7 +34,7 @@ if [[ $return_code == "0" ]]; then
 fi
 
 print_status "Push changes to remote..."
-exec_cmd "git push origin ${BRANCH_NAME}" \
+exec_cmd "git push -u origin ${BRANCH_NAME}" \
     "ERROR: Failed to push branch."
 
 print_status "Current branches:"
