@@ -4,8 +4,8 @@ MY_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE
 MY_DIR="$(dirname $(dirname $MY_PATH))"
 REPO_DIR="$(pwd)"
 
-echo "MY DIR: $MY_DIR"
-echo "REPO DIR: $REPO_DIR"
+# echo "MY DIR: $MY_DIR"
+# echo "REPO DIR: $REPO_DIR"
 
 ###
 ### PRINTERS

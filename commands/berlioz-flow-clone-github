@@ -1,0 +1,22 @@
+#!/bin/bash
+
+source "${BASH_SOURCE%/*}/helpers/src-root-dir.sh"
+
+USER_NAME=$1
+if [[ -z $USER_NAME ]]; then
+    echo "ERROR: Arguments missing"
+    echo "Usage: berlioz-flow-clone-github <user-name> <repo-name>"
+    exit 1
+fi
+
+REPO_NAME=$2
+if [[ -z $USER_NAME ]]; then
+    echo "ERROR: Arguments missing"
+    echo "Usage: berlioz-flow-clone-github <user-name> <repo-name>"
+    exit 1
+fi
+
+DIR_NAME=${REPO_NAME}.git
+URL=https://github.com/${USER_NAME}/${REPO_NAME}.git
+
+berlioz-flow-clone ${URL} ${DIR_NAME}

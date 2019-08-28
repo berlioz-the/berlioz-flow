@@ -1,0 +1,35 @@
+#!/bin/bash
+
+source "${BASH_SOURCE%/*}/helpers/src-root-dir.sh"
+
+URL=$1
+if [[ -z $URL ]]; then
+    echo "ERROR: Arguments missing"
+    echo "Usage: berlioz-flow-clone <url> <dir>"
+    exit 1
+fi
+
+DIR_NAME=$2
+if [[ -z $DIR_NAME ]]; then
+    echo "ERROR: Arguments missing"
+    echo "Usage: berlioz-flow-clone <url> <dir>"
+    exit 1
+fi
+
+if [[ -d ${DIR_NAME} ]]; then 
+
+    print_header "Cannot clone. Repository already exists at ${DIR_NAME}" ""
+
+else
+
+    print_header "Cloning repository ${URL} ..." ""
+
+    exec_cmd "git config --global credential.helper manager" \
+        "ERROR: Failed to setup credential manager." 
+
+    exec_cmd "git clone ${URL} ${DIR_NAME}" \
+        "ERROR: Failed to clone repository." 
+
+    print_header "Clone completed."
+
+fi
