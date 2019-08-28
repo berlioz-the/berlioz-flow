@@ -30,6 +30,12 @@ else
     exec_cmd "git clone ${URL} ${DIR_NAME}" \
         "ERROR: Failed to clone repository." 
 
+    cd ${DIR_NAME}
+    for branch in `git branch -a | grep remotes | grep -v HEAD | grep -v master `; do
+        exec_cmd "git branch --track ${branch#remotes/origin/} ${branch}" \
+            "ERROR: Failed to checkout the branch ${branch}." 
+    done
+
     print_header "Clone completed."
 
 fi
