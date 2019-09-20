@@ -4,7 +4,8 @@
 ###
 ###
 git_commit() {
-    local COMMIT_MESSAGE=$1
+    local COMMIT_MESSAGE_SUFFIX=$1
+    local COMMIT_MESSAGE=$2
 
     print_status "This is a command to commit changes"
 
@@ -20,11 +21,15 @@ git_commit() {
     exec_cmd "git add -A" \
         "ERROR: Failed to add to index"
 
-    if [ -z "$COMMIT_MESSAGE" ]; then 
+    if [[ -z "${COMMIT_MESSAGE}" ]]; then 
         DEFAULT_COMMIT_MESSAGE="Auto Commit"
         read -p "Commit message ($DEFAULT_COMMIT_MESSAGE): " COMMIT_MESSAGE
         COMMIT_MESSAGE=${COMMIT_MESSAGE:-$DEFAULT_COMMIT_MESSAGE}
     fi
+
+    if [[ ! -z "${COMMIT_MESSAGE_SUFFIX}" ]]; then 
+        COMMIT_MESSAGE="$(printf "${COMMIT_MESSAGE} ${COMMIT_MESSAGE_SUFFIX}")"
+    fi 
 
     CHANGES=$(git status -s -u)
     AREA_CHANGES=$(echo $CHANGES | awk '{$1=$1};1' | cut -d' ' -f2 | awk -F "/" '{print $1}' | sort -u)

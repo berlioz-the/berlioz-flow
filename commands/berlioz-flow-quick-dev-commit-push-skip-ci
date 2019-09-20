@@ -2,6 +2,6 @@
 
 source "${BASH_SOURCE%/*}/helpers/src-root-dir.sh"
 
-git_commit "Dev Auto Commit [skip ci]"
+git_commit "[skip ci]" "Dev Auto Commit" 
 
 git_push
